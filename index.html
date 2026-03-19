@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#060810">
+<meta name="description" content="RizzUp — Learn Real American English. Slang, pronunciation, AI coach, games. Free forever.">
+<meta property="og:title" content="RizzUp — Level Up Your American English">
+<meta property="og:description" content="The app that teaches you how Americans actually speak. Slang, pronunciation, AI coach, games. 100% free.">
+<title>RizzUp — Level Up Your American English</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════
+   RIZZUP — Design System
+   Aesthetic: Dark streetwear × editorial
+   Palette: Near-black + electric green + warm white
+════════════════════════════════════════ */
+:root{
+  --void:#060810;
+  --deep:#0a0f1e;
+  --layer:#0f162a;
+  --layer2:#162035;
+  --edge:rgba(255,255,255,.07);
+  --edge2:rgba(255,255,255,.12);
+  --edge3:rgba(255,255,255,.2);
+  --txt:#eef2ff;
+  --txt2:#8896b8;
+  --txt3:#4a5878;
+  --lime:#b4ff4e;
+  --lime2:#8ecc3a;
+  --lime-glow:rgba(180,255,78,.12);
+  --lime-glow2:rgba(180,255,78,.06);
+  --cyan:#3df0c2;
+  --cyan-glow:rgba(61,240,194,.08);
+  --red:#ff4757;
+  --gold:#ffd060;
+  --r:12px;--r2:20px;--r3:32px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--void);color:var(--txt);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── CURSOR ── */
+*{cursor:none}
+.cursor{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--lime);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,width .25s,height .25s,opacity .25s;mix-blend-mode:exclusion}
+.cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(180,255,78,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease,width .2s,height .2s}
+@media(pointer:coarse){.cursor,.cursor-ring{display:none}*{cursor:auto}}
+
+/* ── NOISE TEXTURE ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+
+/* ── AMBIENT ── */
+.amb{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.a1{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(180,255,78,.07) 0%,transparent 65%);top:-250px;right:-200px;animation:f1 20s ease-in-out infinite}
+.a2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(61,240,194,.05) 0%,transparent 65%);bottom:-100px;left:-150px;animation:f2 25s ease-in-out infinite}
+.a3{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(180,255,78,.04) 0%,transparent 65%);top:45%;left:48%;animation:f3 18s ease-in-out infinite}
+@keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,40px)}}
+@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px)}}
+@keyframes f3{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(calc(-50% + 30px),calc(-50% + 20px))}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 clamp(16px,4vw,60px);height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,16,.7);backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:border-color .3s}
+nav.scrolled{border-color:var(--edge)}
+.nav-logo{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;letter-spacing:-1px;color:var(--txt);text-decoration:none;display:flex;align-items:center;gap:8px}
+.nav-logo .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime)}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--txt2);text-decoration:none;letter-spacing:.3px;transition:color .2s}
+.nav-links a:hover{color:var(--lime)}
+.nav-cta{padding:9px 22px;border-radius:99px;background:var(--lime);color:var(--void);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;letter-spacing:.3px}
+.nav-cta:hover{background:#c8ff66;box-shadow:0 0 24px rgba(180,255,78,.4);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-hamburger span{width:24px;height:2px;background:var(--txt);border-radius:99px;transition:all .3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--deep);z-index:190;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Clash Display',sans-serif;font-size:28px;font-weight:700;color:var(--txt);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--lime)}
+
+/* ── SECTIONS BASE ── */
+section{position:relative;z-index:1}
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(16px,4vw,60px)}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px 0 60px;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:var(--lime-glow);border:1px solid rgba(180,255,78,.2);font-size:11px;font-weight:700;color:var(--lime);text-transform:uppercase;letter-spacing:2px;margin-bottom:22px;animation:fadeUp .6s ease both}
+.hero-eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(180,255,78,.5)}50%{box-shadow:0 0 0 6px rgba(180,255,78,0)}}
+.hero-title{font-family:'Clash Display',sans-serif;font-size:clamp(42px,5.5vw,74px);font-weight:700;line-height:1.05;letter-spacing:-2px;margin-bottom:22px;animation:fadeUp .7s .1s ease both}
+.hero-title .line2{display:block;background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(15px,1.8vw,18px);color:var(--txt2);line-height:1.7;max-width:480px;margin-bottom:36px;animation:fadeUp .7s .2s ease both}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .7s .3s ease both}
+.btn-primary{padding:14px 30px;border-radius:99px;background:var(--lime);color:var(--void);font-family:'Syne',sans-serif;font-size:15px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;letter-spacing:.2px}
+.btn-primary:hover{background:#c8ff66;box-shadow:0 0 32px rgba(180,255,78,.45);transform:translateY(-2px)}
+.btn-secondary{padding:14px 30px;border-radius:99px;background:transparent;color:var(--txt);font-family:'Syne',sans-serif;font-size:15px;font-weight:700;text-decoration:none;border:1.5px solid var(--edge3);transition:all .25s}
+.btn-secondary:hover{border-color:var(--lime);color:var(--lime)}
+.hero-stats{display:flex;gap:28px;margin-top:44px;animation:fadeUp .7s .4s ease both;flex-wrap:wrap}
+.hstat{text-align:center}
+.hstat-n{font-family:'Clash Display',sans-serif;font-size:28px;font-weight:700;color:var(--lime);letter-spacing:-1px}
+.hstat-l{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.hero-divider{width:1px;background:var(--edge);align-self:stretch}
+
+/* HERO PHONE MOCKUP */
+.hero-visual{display:flex;justify-content:center;align-items:center;animation:fadeUp .8s .3s ease both;position:relative}
+.phone-wrap{position:relative;width:280px}
+.phone-frame{background:linear-gradient(145deg,var(--layer),var(--layer2));border-radius:40px;border:2px solid var(--edge2);padding:16px;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.06);position:relative;overflow:hidden}
+.phone-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(180,255,78,.04),transparent 60%);pointer-events:none}
+.phone-notch{width:80px;height:6px;background:var(--void);border-radius:99px;margin:0 auto 14px}
+.phone-screen{background:var(--deep);border-radius:28px;padding:16px;min-height:480px;display:flex;flex-direction:column;gap:10px}
+.ps-header{text-align:center;margin-bottom:6px}
+.ps-flag{font-size:28px;display:block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.ps-title{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:700;background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ps-xp{height:4px;background:var(--layer);border-radius:99px;overflow:hidden;margin:8px 0}
+.ps-xp-fill{height:100%;width:65%;background:linear-gradient(90deg,var(--lime),var(--cyan));border-radius:99px}
+.ps-tabs{display:flex;gap:3px;background:var(--layer);border-radius:8px;padding:3px}
+.ps-tab{flex:1;text-align:center;font-size:8px;font-weight:700;padding:5px 2px;border-radius:6px;color:var(--txt3)}
+.ps-tab.a{background:rgba(180,255,78,.15);color:var(--lime)}
+.ps-card{background:var(--layer);border-radius:12px;padding:12px;border:1px solid var(--edge)}
+.ps-word{font-family:'Clash Display',sans-serif;font-size:18px;font-weight:700;color:var(--lime);margin-bottom:2px}
+.ps-ipa{font-size:9px;color:#3df0c2;font-style:italic;margin-bottom:5px}
+.ps-def{font-size:10px;color:var(--txt2);margin-bottom:3px}
+.ps-ex{font-size:9px;color:var(--txt3);font-style:italic}
+.ps-btns{display:flex;gap:5px;margin-top:8px}
+.ps-btn{flex:1;padding:5px;border-radius:6px;background:rgba(180,255,78,.1);border:1px solid rgba(180,255,78,.2);color:var(--lime);font-size:8px;font-weight:700;text-align:center}
+.ps-challenge{background:linear-gradient(135deg,rgba(180,255,78,.1),rgba(61,240,194,.06));border:1px solid rgba(180,255,78,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px}
+.ps-ch-icon{font-size:22px}
+.ps-ch-title{font-size:10px;font-weight:700;color:var(--txt);margin-bottom:2px}
+.ps-ch-sub{font-size:9px;color:var(--txt3)}
+.ps-ch-score{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:700;color:var(--gold);margin-left:auto}
+/* glow rings around phone */
+.phone-glow{position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(180,255,78,.08) 0%,transparent 65%);pointer-events:none;animation:glowPulse 4s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+.phone-badge{position:absolute;right:-20px;top:60px;background:var(--lime);color:var(--void);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;padding:8px 14px;border-radius:99px;box-shadow:0 8px 24px rgba(180,255,78,.4);animation:badgeFloat 3s ease-in-out infinite}
+.phone-badge2{position:absolute;left:-24px;bottom:100px;background:var(--layer2);border:1px solid var(--edge2);color:var(--txt);font-size:10px;font-weight:600;padding:8px 14px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:badgeFloat 3s .5s ease-in-out infinite;white-space:nowrap}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ── MARQUEE ── */
+.marquee-wrap{padding:20px 0;border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);overflow:hidden;background:rgba(180,255,78,.02)}
+.marquee-track{display:flex;gap:0;animation:marquee 25s linear infinite;width:max-content}
+.marquee-track:hover{animation-play-state:paused}
+.mitem{font-family:'Clash Display',sans-serif;font-size:14px;font-weight:600;color:var(--txt3);padding:0 32px;white-space:nowrap;display:flex;align-items:center;gap:12px}
+.mitem .dot{width:5px;height:5px;border-radius:50%;background:var(--lime);opacity:.6}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── FEATURES ── */
+#features{padding:clamp(60px,10vw,120px) 0}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--lime);margin-bottom:16px}
+.section-label::before{content:'';width:24px;height:1.5px;background:var(--lime)}
+.section-title{font-family:'Clash Display',sans-serif;font-size:clamp(32px,4.5vw,56px);font-weight:700;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}
+.section-sub{font-size:clamp(14px,1.6vw,17px);color:var(--txt2);line-height:1.7;max-width:560px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.feat-card{background:var(--layer);border:1px solid var(--edge);border-radius:var(--r2);padding:28px;transition:all .3s;position:relative;overflow:hidden;group:true}
+.feat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--lime-glow),transparent);opacity:0;transition:opacity .3s;pointer-events:none}
+.feat-card:hover{border-color:rgba(180,255,78,.25);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.feat-card:hover::before{opacity:1}
+.feat-icon{width:48px;height:48px;border-radius:14px;background:var(--lime-glow);border:1px solid rgba(180,255,78,.2);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+.feat-title{font-family:'Clash Display',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;letter-spacing:-.3px}
+.feat-desc{font-size:13px;color:var(--txt2);line-height:1.7}
+.feat-tag{display:inline-block;margin-top:14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--lime);background:var(--lime-glow);border:1px solid rgba(180,255,78,.15);padding:3px 10px;border-radius:99px}
+.feat-card.highlight{background:linear-gradient(135deg,rgba(180,255,78,.07),rgba(61,240,194,.04));border-color:rgba(180,255,78,.2)}
+
+/* ── HOW IT WORKS ── */
+#howitworks{padding:clamp(60px,10vw,120px) 0;background:linear-gradient(180deg,transparent,rgba(180,255,78,.02),transparent)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px;position:relative}
+.steps::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--lime-glow2),var(--lime),var(--lime-glow2),transparent)}
+.step{text-align:center;padding:24px 16px}
+.step-num{width:64px;height:64px;border-radius:50%;background:var(--layer);border:2px solid var(--edge2);display:flex;align-items:center;justify-content:center;font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;color:var(--lime);margin:0 auto 18px;position:relative;z-index:1;transition:all .3s}
+.step:hover .step-num{background:var(--lime-glow);border-color:var(--lime);box-shadow:0 0 24px rgba(180,255,78,.3)}
+.step-title{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--txt2);line-height:1.6}
+
+/* ── STATS BAND ── */
+.stats-band{padding:clamp(40px,6vw,80px) 0;border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);background:rgba(180,255,78,.02)}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.stat-n{font-family:'Clash Display',sans-serif;font-size:clamp(36px,5vw,56px);font-weight:700;background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-2px}
+.stat-l{font-size:13px;color:var(--txt3);margin-top:4px;letter-spacing:.5px}
+
+/* ── TESTIMONIALS ── */
+#testimonials{padding:clamp(60px,10vw,120px) 0}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.testi-card{background:var(--layer);border:1px solid var(--edge);border-radius:var(--r2);padding:28px;transition:all .3s}
+.testi-card:hover{border-color:rgba(180,255,78,.2);transform:translateY(-3px)}
+.testi-stars{color:var(--gold);font-size:14px;margin-bottom:14px;letter-spacing:2px}
+.testi-quote{font-size:14px;color:var(--txt2);line-height:1.8;margin-bottom:20px;font-style:italic}
+.testi-quote strong{color:var(--lime);font-style:normal}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--lime-glow),var(--cyan-glow));border:2px solid var(--edge2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.testi-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:2px}
+.testi-meta{font-size:11px;color:var(--txt3)}
+.testi-flag{font-size:14px}
+
+/* ── PRICING ── */
+#pricing{padding:clamp(60px,10vw,120px) 0}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:56px auto 0}
+.price-card{background:var(--layer);border:1px solid var(--edge);border-radius:var(--r2);padding:36px;position:relative;overflow:hidden;transition:all .3s}
+.price-card.popular{background:linear-gradient(145deg,rgba(180,255,78,.07),rgba(61,240,194,.04));border-color:rgba(180,255,78,.3);box-shadow:0 0 0 1px rgba(180,255,78,.1),0 24px 48px rgba(0,0,0,.4)}
+.price-card.popular::before{content:'✦ 100% FREE';position:absolute;top:18px;right:-28px;background:var(--lime);color:var(--void);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;padding:5px 40px;transform:rotate(35deg);letter-spacing:1px}
+.price-plan{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--txt3);margin-bottom:14px;font-family:'Syne',sans-serif}
+.price-plan.green{color:var(--lime)}
+.price-amount{font-family:'Clash Display',sans-serif;font-size:52px;font-weight:700;letter-spacing:-2px;margin-bottom:6px;display:flex;align-items:flex-start;gap:4px}
+.price-amount sup{font-size:22px;margin-top:10px;color:var(--txt2)}
+.price-amount .free-badge{font-size:52px;color:var(--lime)}
+.price-desc{font-size:13px;color:var(--txt2);margin-bottom:24px;line-height:1.6}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.price-features li{font-size:13px;color:var(--txt2);display:flex;align-items:center;gap:10px}
+.price-features li::before{content:'';width:16px;height:16px;border-radius:50%;background:var(--lime-glow);border:1px solid rgba(180,255,78,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23b4ff4e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+.price-features li.dim{opacity:.4}
+.price-features li.dim::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 3l6 6M9 3l-6 6' stroke='%234a5878' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")}
+.btn-plan{display:block;text-align:center;padding:14px;border-radius:12px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;letter-spacing:.3px}
+.btn-plan.green{background:var(--lime);color:var(--void)}
+.btn-plan.green:hover{background:#c8ff66;box-shadow:0 8px 28px rgba(180,255,78,.4);transform:translateY(-2px)}
+.btn-plan.outline{background:transparent;border:1.5px solid var(--edge3);color:var(--txt)}
+.btn-plan.outline:hover{border-color:var(--lime);color:var(--lime)}
+
+/* ── ABOUT ── */
+#about{padding:clamp(60px,10vw,120px) 0}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.about-img{position:relative}
+.about-big-text{font-family:'Clash Display',sans-serif;font-size:clamp(80px,12vw,140px);font-weight:700;line-height:.9;letter-spacing:-4px;color:transparent;-webkit-text-stroke:1px rgba(180,255,78,.15);user-select:none;position:relative}
+.about-big-text span{color:var(--lime);-webkit-text-stroke:0}
+.about-card{background:var(--layer);border:1px solid var(--edge);border-radius:var(--r2);padding:22px;position:absolute;bottom:-20px;right:-20px;min-width:200px;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.about-card-icon{font-size:24px;margin-bottom:8px}
+.about-card-title{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px}
+.about-card-desc{font-size:12px;color:var(--txt2);line-height:1.5}
+.about-body p{font-size:clamp(14px,1.5vw,16px);color:var(--txt2);line-height:1.8;margin-bottom:20px}
+.about-body strong{color:var(--txt)}
+.about-body .highlight{color:var(--lime)}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+.av-item{background:var(--layer);border:1px solid var(--edge);border-radius:14px;padding:16px}
+.av-icon{font-size:20px;margin-bottom:8px}
+.av-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px}
+.av-desc{font-size:11px;color:var(--txt3);line-height:1.5}
+
+/* ── NEWSLETTER ── */
+#newsletter{padding:clamp(60px,10vw,120px) 0}
+.nl-box{background:linear-gradient(135deg,var(--layer),rgba(180,255,78,.04));border:1px solid rgba(180,255,78,.15);border-radius:var(--r3);padding:clamp(40px,6vw,80px);text-align:center;position:relative;overflow:hidden}
+.nl-box::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(180,255,78,.06),transparent 65%);pointer-events:none}
+.nl-title{font-family:'Clash Display',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-1px;margin-bottom:12px;position:relative}
+.nl-sub{font-size:clamp(14px,1.5vw,16px);color:var(--txt2);max-width:440px;margin:0 auto 36px;line-height:1.7;position:relative}
+.nl-form{display:flex;gap:10px;max-width:480px;margin:0 auto;position:relative}
+.nl-input{flex:1;background:rgba(255,255,255,.05);border:1.5px solid var(--edge2);border-radius:12px;padding:14px 20px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color .2s}
+.nl-input:focus{border-color:var(--lime)}
+.nl-input::placeholder{color:var(--txt3)}
+.nl-btn{padding:14px 28px;border-radius:12px;background:var(--lime);color:var(--void);font-family:'Syne',sans-serif;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:all .25s;white-space:nowrap}
+.nl-btn:hover{background:#c8ff66;box-shadow:0 8px 28px rgba(180,255,78,.4)}
+.nl-note{font-size:11px;color:var(--txt3);margin-top:14px;position:relative}
+.nl-success{display:none;font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;color:var(--lime);margin-top:20px}
+
+/* ── FAQ ── */
+#faq{padding:clamp(60px,10vw,120px) 0}
+.faq-grid{max-width:760px;margin:56px auto 0;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:var(--layer);border:1px solid var(--edge);border-radius:16px;overflow:hidden;transition:border-color .2s}
+.faq-item.open{border-color:rgba(180,255,78,.2)}
+.faq-q{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:16px;font-family:'Syne',sans-serif;font-size:15px;font-weight:600;transition:color .2s}
+.faq-q:hover{color:var(--lime)}
+.faq-item.open .faq-q{color:var(--lime)}
+.faq-icon{width:28px;height:28px;border-radius:50%;background:var(--layer2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .3s;color:var(--txt3)}
+.faq-item.open .faq-icon{background:var(--lime-glow);color:var(--lime);transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.faq-item.open .faq-a{max-height:300px;padding:0 24px 20px}
+.faq-a p{font-size:14px;color:var(--txt2);line-height:1.8}
+.faq-a a{color:var(--lime);text-decoration:none}
+.faq-a a:hover{text-decoration:underline}
+
+/* ── DOWNLOAD CTA ── */
+#download{padding:clamp(60px,10vw,120px) 0}
+.dl-inner{background:var(--void);border:1px solid var(--edge);border-radius:var(--r3);padding:clamp(40px,6vw,80px);text-align:center;position:relative;overflow:hidden}
+.dl-inner::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(180,255,78,.05),rgba(61,240,194,.03),transparent);pointer-events:none}
+.dl-title{font-family:'Clash Display',sans-serif;font-size:clamp(32px,5vw,64px);font-weight:700;letter-spacing:-2px;margin-bottom:14px;position:relative;z-index:1}
+.dl-title em{font-style:normal;background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.dl-sub{font-size:clamp(14px,1.5vw,17px);color:var(--txt2);max-width:480px;margin:0 auto 36px;line-height:1.7;position:relative;z-index:1}
+.dl-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.dl-btn{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;border-radius:14px;background:var(--layer);border:1.5px solid var(--edge2);color:var(--txt);text-decoration:none;transition:all .25s}
+.dl-btn:hover{border-color:var(--lime);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.dl-btn.main{background:var(--lime);color:var(--void);border-color:transparent}
+.dl-btn.main:hover{background:#c8ff66;box-shadow:0 12px 32px rgba(180,255,78,.4)}
+.dl-btn-icon{font-size:24px}
+.dl-btn-text{text-align:left}
+.dl-btn-sub{font-size:10px;opacity:.7;display:block}
+.dl-btn-main-text{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+
+/* ── FOOTER ── */
+footer{padding:clamp(40px,6vw,60px) 0 clamp(20px,4vw,40px);border-top:1px solid var(--edge)}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand .logo{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.footer-brand .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--lime)}
+.footer-brand p{font-size:13px;color:var(--txt3);line-height:1.7;max-width:260px;margin-bottom:20px}
+.footer-social{display:flex;gap:10px}
+.fsoc{width:36px;height:36px;border-radius:10px;background:var(--layer);border:1px solid var(--edge);display:flex;align-items:center;justify-content:center;font-size:15px;text-decoration:none;transition:all .2s}
+.fsoc:hover{border-color:var(--lime);transform:translateY(-2px)}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--txt3);margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col a{font-size:13px;color:var(--txt2);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--lime)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid var(--edge)}
+.footer-copy{font-size:12px;color:var(--txt3)}
+.footer-copy a{color:var(--lime);text-decoration:none}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--txt3);background:var(--layer);border:1px solid var(--edge);border-radius:99px;padding:5px 12px}
+.footer-badge .live{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 2s infinite}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center}
+  .hero-sub{margin:0 auto 36px}
+  .hero-btns{justify-content:center}
+  .hero-stats{justify-content:center}
+  .hero-visual{order:-1}
+  .phone-wrap{width:220px}
+  .phone-badge,.phone-badge2{display:none}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+  .stats-inner{grid-template-columns:1fr 1fr}
+  .testi-grid{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .about-inner{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .feat-grid,.testi-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .nl-form{flex-direction:column}
+  .footer-inner{grid-template-columns:1fr}
+  .dl-btns{flex-direction:column;align-items:center}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- AMBIENT -->
+<div class="amb"><div class="a1"></div><div class="a2"></div><div class="a3"></div></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span class="logo-dot"></span>
+    RizzUp
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#howitworks">How It Works</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#download" class="nav-cta">Get the App →</a>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features" onclick="toggleMenu()">Features</a>
+  <a href="#howitworks" onclick="toggleMenu()">How It Works</a>
+  <a href="#testimonials" onclick="toggleMenu()">Reviews</a>
+  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#download" onclick="toggleMenu()" style="color:var(--lime)">Get the App →</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <span class="pulse"></span>
+          Free Forever · AI-Powered · PWA
+        </div>
+        <h1 class="hero-title">
+          Speak American
+          <span class="line2">Like You Were
+          Born There.</span>
+        </h1>
+        <p class="hero-sub">Stop sounding textbook. RizzUp teaches you real American slang, pronunciation, idioms and culture — the way natives actually talk. Powered by GaetCode. 100% free.</p>
+        <div class="hero-btns">
+          <a href="#download" class="btn-primary">
+            <span>🚀</span> Get RizzUp Free
+          </a>
+          <a href="#features" class="btn-secondary">See Features</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat"><div class="hstat-n">200+</div><div class="hstat-l">Words & Phrases</div></div>
+          <div class="hero-divider"></div>
+          <div class="hstat"><div class="hstat-n">11</div><div class="hstat-l">Learning Modes</div></div>
+          <div class="hero-divider"></div>
+          <div class="hstat"><div class="hstat-n">AI</div><div class="hstat-l">Powered Coach</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-wrap">
+          <div class="phone-glow"></div>
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="ps-header">
+                <span class="ps-flag">🇺🇸</span>
+                <div class="ps-title">RizzUp</div>
+                <div class="ps-xp"><div class="ps-xp-fill"></div></div>
+              </div>
+              <div class="ps-tabs">
+                <div class="ps-tab a">📖 Words</div>
+                <div class="ps-tab">🎙️ Coach</div>
+                <div class="ps-tab">⚡ Play</div>
+              </div>
+              <div class="ps-card">
+                <div class="ps-word">rizz</div>
+                <div class="ps-ipa">/rɪz/ · Gen Z · B1</div>
+                <div class="ps-def">Natural charm & charisma (esp. romantic)</div>
+                <div class="ps-ex">"He's got unspoken rizz fr."</div>
+                <div class="ps-btns">
+                  <div class="ps-btn">🔊 Listen</div>
+                  <div class="ps-btn">🐢 Slow</div>
+                  <div class="ps-btn">💬 Example</div>
+                </div>
+              </div>
+              <div class="ps-challenge">
+                <div class="ps-ch-icon">⚡</div>
+                <div>
+                  <div class="ps-ch-title">Speed Challenge</div>
+                  <div class="ps-ch-sub">Daily streak: 5 🔥</div>
+                </div>
+                <div class="ps-ch-score">340</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-badge">✅ 100% Free</div>
+          <div class="phone-badge2">🤖 AI Corrections</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="mitem"><span class="dot"></span>Slang Dictionary</span>
+    <span class="mitem"><span class="dot"></span>AI Coach</span>
+    <span class="mitem"><span class="dot"></span>Pronunciation</span>
+    <span class="mitem"><span class="dot"></span>Wordle Slang</span>
+    <span class="mitem"><span class="dot"></span>Free Dialogue</span>
+    <span class="mitem"><span class="dot"></span>Memory Game</span>
+    <span class="mitem"><span class="dot"></span>IPA Interactive</span>
+    <span class="mitem"><span class="dot"></span>Speed Challenge</span>
+    <span class="mitem"><span class="dot"></span>Daily Review</span>
+    <span class="mitem"><span class="dot"></span>Minimal Pairs</span>
+    <span class="mitem"><span class="dot"></span>AI Translator</span>
+    <span class="mitem"><span class="dot"></span>Level A1 → C1</span>
+    <span class="mitem"><span class="dot"></span>Works Offline</span>
+    <span class="mitem"><span class="dot"></span>Slang Dictionary</span>
+    <span class="mitem"><span class="dot"></span>AI Coach</span>
+    <span class="mitem"><span class="dot"></span>Pronunciation</span>
+    <span class="mitem"><span class="dot"></span>Wordle Slang</span>
+    <span class="mitem"><span class="dot"></span>Free Dialogue</span>
+    <span class="mitem"><span class="dot"></span>Memory Game</span>
+    <span class="mitem"><span class="dot"></span>IPA Interactive</span>
+    <span class="mitem"><span class="dot"></span>Speed Challenge</span>
+    <span class="mitem"><span class="dot"></span>Daily Review</span>
+    <span class="mitem"><span class="dot"></span>Minimal Pairs</span>
+    <span class="mitem"><span class="dot"></span>AI Translator</span>
+    <span class="mitem"><span class="dot"></span>Level A1 → C1</span>
+    <span class="mitem"><span class="dot"></span>Works Offline</span>
+  </div>
+</div>
+
+<!-- ══ FEATURES ══ -->
+<section id="features">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything you need to<br>sound like a native.</h2>
+      <p class="section-sub">RizzUp packs every tool you need into one free app —  no tricks, no limits.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card highlight reveal reveal-delay-1">
+        <div class="feat-icon">🤖</div>
+        <div class="feat-title">AI Pronunciation Coach</div>
+        <div class="feat-desc">Speak, get scored word-by-word. The AI analyzes every sound, highlights your mistakes, and gives personalized tips.</div>
+        <span class="feat-tag">Powered by GaetCode</span>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">😎</div>
+        <div class="feat-title">200+ Words Explorer</div>
+        <div class="feat-desc">Every word has IPA phonetics, usage frequency, context, examples, and a "how to use it" guide. Real talk only.</div>
+        <span class="feat-tag">A1 → C1 levels</span>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">💬</div>
+        <div class="feat-title">Free Dialogue + Corrections</div>
+        <div class="feat-desc">Chat with AI characters in real scenarios — café, job interview, friends. Every message gets corrected instantly.</div>
+        <span class="feat-tag">6 Scenarios</span>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">🎮</div>
+        <div class="feat-title">3 Learning Games</div>
+        <div class="feat-desc">Memory card game, Slang Wordle (5-letter words), and Fill-in-the-Blank. Learning that actually feels fun.</div>
+        <span class="feat-tag">Memory · Wordle · FIB</span>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">⚡</div>
+        <div class="feat-title">Speed Challenge Mode</div>
+        <div class="feat-desc">Race against the clock. Combo multipliers, Survival mode (one wrong = game over), personal leaderboard.</div>
+        <span class="feat-tag">5 Challenge Modes</span>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">🌐</div>
+        <div class="feat-title">AI Contextual Translator</div>
+        <div class="feat-desc">Not just translation — you get the register (formal/slang), context, IPA, and 2 alternative ways to say it.</div>
+        <span class="feat-tag">FR ↔ EN American</span>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">👂</div>
+        <div class="feat-title">Minimal Pairs Training</div>
+        <div class="feat-desc">Train your ear on ship/sheep, light/right, cat/cut. The sounds that trip up every non-native speaker.</div>
+        <span class="feat-tag">7 pairs · IPA guide</span>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">📱</div>
+        <div class="feat-title">Works Offline — PWA</div>
+        <div class="feat-desc">Install it like a native app. Coach, games, challenge — all fully offline. Only AI features need internet.</div>
+        <span class="feat-tag">Install on any device</span>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">📅</div>
+        <div class="feat-title">Daily Review System</div>
+        <div class="feat-desc">5 mixed exercises every day — slang, listening, grammar, pairs. Build a streak and track your progress.</div>
+        <span class="feat-tag">Spaced repetition</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section id="howitworks">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">How it works</div>
+      <h2 class="section-title">From zero to rizz in 4 steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">1</div>
+        <div class="step-title">Install the App</div>
+        <div class="step-desc">Add RizzUp to your home screen — works on iPhone, Android, desktop. Free, no account needed.</div>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">2</div>
+        <div class="step-title">Pick Your Level</div>
+        <div class="step-desc">From absolute beginner (A1) to advanced (C1). RizzUp adapts to where you are right now.</div>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num">3</div>
+        <div class="step-title">Learn Daily</div>
+        <div class="step-desc">5 exercises a day keeps you sharp. Play games, do challenges, talk to the AI coach.</div>
+      </div>
+      <div class="step reveal reveal-delay-4">
+        <div class="step-num">4</div>
+        <div class="step-title">Sound Native</div>
+        <div class="step-desc">Real pronunciation. Real slang. Real conversations. People will think you grew up in the US.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAND ══ -->
+<div class="stats-band">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="reveal"><div class="stat-n" id="c1">0</div><div class="stat-l">Words & Phrases</div></div>
+      <div class="reveal reveal-delay-1"><div class="stat-n" id="c2">0</div><div class="stat-l">Learning Activities</div></div>
+      <div class="reveal reveal-delay-2"><div class="stat-n" id="c3">0</div><div class="stat-l">AI-Powered Features</div></div>
+      <div class="reveal reveal-delay-3"><div class="stat-n" id="c4">0</div><div class="stat-l">Cost. Forever.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section id="testimonials">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Reviews</div>
+      <h2 class="section-title">They leveled up.<br>Now it's your turn.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">I've tried Duolingo, Babbel, everything. Nothing taught me how Americans <strong>actually talk</strong> until RizzUp. The slang dictionary alone is worth it.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">🧑</div>
+          <div>
+            <div class="testi-name">Karim B. <span class="testi-flag">🇲🇦</span></div>
+            <div class="testi-meta">Student, moved to NYC</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">The AI dialogue corrects every sentence I write. I've learned more in <strong>2 weeks</strong> of RizzUp than 6 months of language school. No joke, no cap.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Sofia M. <span class="testi-flag">🇫🇷</span></div>
+            <div class="testi-meta">Marketing manager, Paris</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-3">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">The pronunciation coach blew my mind. It analyzes <strong>every single word</strong> and tells you exactly which sounds you're missing. My accent improved insanely fast.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">🧔</div>
+          <div>
+            <div class="testi-name">Youssef A. <span class="testi-flag">🇹🇳</span></div>
+            <div class="testi-meta">Engineer, preparing for US visa</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">The Wordle game for slang is genuinely <strong>addictive</strong>. I play it every morning. My coworkers are impressed by how natural my English sounds now.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍💼</div>
+          <div>
+            <div class="testi-name">Amira L. <span class="testi-flag">🇩🇿</span></div>
+            <div class="testi-meta">Remote worker for US company</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">I use the AI translator every day at work. It doesn't just translate — it tells you the <strong>register</strong>, alternatives, and how natural it sounds. Game changer.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">👨‍🎓</div>
+          <div>
+            <div class="testi-name">Thomas D. <span class="testi-flag">🇧🇪</span></div>
+            <div class="testi-meta">PhD student, Boston</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-3">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">The best part? It's <strong>completely free</strong>. I kept waiting for a paywall to pop up. It never did. RizzUp is genuinely the best English app I've ever used.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍🦱</div>
+          <div>
+            <div class="testi-name">Nadia K. <span class="testi-flag">🇸🇳</span></div>
+            <div class="testi-meta">Teacher & content creator</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section id="pricing">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Pricing</div>
+      <h2 class="section-title">Simple pricing.<br>Zero compromise.</h2>
+      <p class="section-sub" style="margin:0 auto">We believe language learning should be accessible to everyone. RizzUp is free — no credit card, no trial, no limits.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal reveal-delay-1">
+        <div class="price-plan">Basic</div>
+        <div class="price-amount"><sup>$</sup>0 <span style="font-size:18px;color:var(--txt3);margin-left:4px">/mo</span></div>
+        <div class="price-desc">Core learning tools, no account needed.</div>
+        <ul class="price-features">
+          <li>200+ words with full context</li>
+          <li>Pronunciation coach (3 modes)</li>
+          <li>3 learning games</li>
+          <li>Speed challenges</li>
+          <li>Minimal pairs training</li>
+          <li>Daily review (5 exercises)</li>
+          <li class="dim">AI Coach (Claude)</li>
+          <li class="dim">AI Translator</li>
+          <li class="dim">AI Free Dialogue</li>
+        </ul>
+        <a href="#download" class="btn-plan outline">Get Started Free</a>
+      </div>
+      <div class="price-card popular reveal reveal-delay-2">
+        <div class="price-plan green">RizzUp + Internet</div>
+        <div class="price-amount"><span class="free-badge">Free</span></div>
+        <div class="price-desc">All features unlocked — just connect to Wi-Fi or mobile data for AI features.</div>
+        <ul class="price-features">
+          <li>Everything in Basic</li>
+          <li>🤖 AI Coach (Claude AI)</li>
+          <li>🌐 Contextual AI Translator</li>
+          <li>💬 Free Dialogue + Corrections</li>
+          <li>📱 Offline PWA install</li>
+          <li>IPA Interactive guide</li>
+          <li>6 dialogue scenarios</li>
+          <li>Unlimited everything</li>
+        </ul>
+        <a href="#download" class="btn-plan green">Get RizzUp Free →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-img reveal">
+        <div class="about-big-text">
+          Real<br><span>Talk.</span><br>Only.
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🎯</div>
+          <div class="about-card-title">Our Mission</div>
+          <div class="about-card-desc">Make authentic American English accessible to everyone, everywhere, for free.</div>
+        </div>
+      </div>
+      <div class="about-body reveal reveal-delay-2">
+        <div class="section-label">About RizzUp</div>
+        <h2 class="section-title" style="font-size:clamp(28px,3.5vw,44px)">We built the app<br>we wished existed.</h2>
+        <p>Most English apps teach you <strong>textbook English</strong> — the kind that makes you sound like a 1950s BBC presenter. Nobody talks like that.</p>
+        <p>RizzUp was built to teach you <span class="highlight">real American English</span> — the slang, the contractions, the idioms, the pronunciation patterns that actual Americans use every single day.</p>
+        <p>Powered by <strong>GaetCode</strong>, the most advanced language model available, RizzUp gives you instant corrections, personalized coaching, and contextual explanations that no textbook ever could.</p>
+        <p>And we made it <span class="highlight">100% free</span>. Because language shouldn't be a luxury.</p>
+        <div class="about-values">
+          <div class="av-item reveal reveal-delay-1">
+            <div class="av-icon">🆓</div>
+            <div class="av-title">Free Forever</div>
+            <div class="av-desc">No paywalls, no premium tier. Everything is free.</div>
+          </div>
+          <div class="av-item reveal reveal-delay-2">
+            <div class="av-icon">🤖</div>
+            <div class="av-title">AI-Powered</div>
+            <div class="av-desc">GaetCode gives personalized, real-time feedback.</div>
+          </div>
+          <div class="av-item reveal reveal-delay-3">
+            <div class="av-icon">📱</div>
+            <div class="av-title">Works Offline</div>
+            <div class="av-desc">Install it, use it anywhere. No data needed for basics.</div>
+          </div>
+          <div class="av-item reveal reveal-delay-4">
+            <div class="av-icon">🎯</div>
+            <div class="av-title">Culturally Accurate</div>
+            <div class="av-desc">AAVE, Gen Z, regional — we teach all of it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<section id="newsletter">
+  <div class="container">
+    <div class="nl-box reveal">
+      <h2 class="nl-title">Get new words every week.</h2>
+      <p class="nl-sub">Subscribe to the RizzUp newsletter — 5 new slang terms, a pronunciation tip, and a cultural deep-dive, every Tuesday.</p>
+      <div class="nl-form" id="nlForm">
+        <input class="nl-input" type="email" id="nlEmail" placeholder="your@email.com">
+        <button class="nl-btn" onclick="subscribeNL()">Subscribe Free</button>
+      </div>
+      <div class="nl-success" id="nlSuccess">✓ You're in! Check your inbox.</div>
+      <p class="nl-note">No spam. Unsubscribe anytime. 100% free.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section id="faq">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">FAQ</div>
+      <h2 class="section-title">Questions? We got you.</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">Is RizzUp really 100% free? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><p>Yes, completely. No hidden fees, no premium tier, no credit card required. Every feature — including the AI coach, translator, and dialogue — is free. The only requirement for AI features is an internet connection.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">Does it work without internet? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><p>Yes! Install RizzUp as a PWA (Progressive Web App) and all the core features work offline: word explorer, pronunciation coach, games, challenges, minimal pairs, and daily review. Only the AI Coach, Translator, and Dialogue need an internet connection.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">How do I install it on my phone? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><p>Open RizzUp in your mobile browser, then tap the "Share" button (iOS) or the menu (Android) and select "Add to Home Screen". It installs like a native app — no App Store or Play Store needed. On desktop, look for the install icon in your browser's address bar.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">What level do I need to start? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><p>Any level! RizzUp has content from A1 (absolute beginner) to C1 (advanced). You can filter all words, lessons, and exercises by level. Start wherever you feel comfortable.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">Which AI powers the coach and translator? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><p>RizzUp uses <a href="https://anthropic.com" target="_blank">Claude by Anthropic</a> — one of the most capable and safe AI models available. It provides corrections, explanations, and contextual translations in real-time.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">Does RizzUp teach formal English too? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><p>Absolutely. While RizzUp is famous for teaching slang and informal speech, the word explorer covers all registers — from casual Gen Z slang to professional phrasal verbs and formal idioms. The AI translator even tells you the register of every translation.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">Can I use RizzUp for a job interview? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><p>Yes! The "Job Interview" dialogue scenario specifically trains you for professional English conversations. The AI will correct your grammar, suggest more natural phrasing, and help you sound confident and natural.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DOWNLOAD CTA ══ -->
+<section id="download">
+  <div class="container">
+    <div class="dl-inner reveal">
+      <h2 class="dl-title">Ready to get your<br><em>rizz</em> up?</h2>
+      <p class="dl-sub">Join thousands of learners who stopped sounding textbook. RizzUp is free, offline-ready, and starts working on day one.</p>
+      <div class="dl-btns">
+        <a href="app.html" class="dl-btn main">
+          <span class="dl-btn-icon">🚀</span>
+          <div class="dl-btn-text">
+            <span class="dl-btn-sub">Open in browser</span>
+            <span class="dl-btn-main-text">Launch RizzUp</span>
+          </div>
+        </a>
+        <a href="app.html" class="dl-btn">
+          <span class="dl-btn-icon">📱</span>
+          <div class="dl-btn-text">
+            <span class="dl-btn-sub">Add to Home Screen</span>
+            <span class="dl-btn-main-text">Install as App</span>
+          </div>
+        </a>
+        <a href="app.html" class="dl-btn">
+          <span class="dl-btn-icon">💻</span>
+          <div class="dl-btn-text">
+            <span class="dl-btn-sub">Desktop / Laptop</span>
+            <span class="dl-btn-main-text">Open on Desktop</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo"><span class="dot"></span>RizzUp</div>
+        <p>Learn real American English — slang, pronunciation, idioms & culture. Powered by GaetCode. Free forever.</p>
+        <div class="footer-social">
+          <a href="#" class="fsoc" title="Twitter/X">𝕏</a>
+          <a href="#" class="fsoc" title="Instagram">📸</a>
+          <a href="#" class="fsoc" title="TikTok">🎵</a>
+          <a href="#" class="fsoc" title="YouTube">▶️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#howitworks">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="app.html">Launch App</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="app.html#words">Word Explorer</a></li>
+          <li><a href="app.html#coach">Pronunciation</a></li>
+          <li><a href="app.html#games">Games</a></li>
+          <li><a href="app.html#daily">Daily Review</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#2b434e4747446b594251515e5b054a5b5b">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 RizzUp. Made with ❤️ for language learners worldwide. Powered by <a href="https://anthropic.com" target="_blank">GaetCode</a>.</div>
+      <div class="footer-badge">
+        <span class="live"></span>
+        100% Free · No Account Needed
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── ALL FUNCTIONS DEFINED FIRST ──
+
+function toggleMenu(){
+  const menu = document.getElementById('mobileMenu');
+  if(menu) menu.classList.toggle('open');
+}
+
+function toggleFAQ(item){
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+function subscribeNL(){
+  const email = (document.getElementById('nlEmail')?.value||'').trim();
+  if(!email||!email.includes('@')){
+    const inp = document.getElementById('nlEmail');
+    if(inp){ inp.style.borderColor='#ff4757'; setTimeout(()=>inp.style.borderColor='',1500); }
+    return;
+  }
+  document.getElementById('nlForm').style.display='none';
+  const s = document.getElementById('nlSuccess');
+  if(s) s.style.display='block';
+}
+
+function animCount(id,target,suffix,duration){
+  duration = duration||1800;
+  const el = document.getElementById(id);
+  if(!el) return;
+  const start = performance.now();
+  const update = t => {
+    const p = Math.min((t-start)/duration,1);
+    const val = Math.round(p*target*(1-Math.pow(1-p,3)));
+    el.textContent = val+(suffix||'');
+    if(p<1) requestAnimationFrame(update);
+    else el.textContent = target+(suffix||'');
+  };
+  requestAnimationFrame(update);
+}
+
+// ── INIT (runs after DOM ready) ──
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Custom cursor (desktop only)
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  if(cursor && ring) {
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{
+      mx=e.clientX; my=e.clientY;
+      cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+    });
+    function animRing(){
+      rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+      ring.style.left=rx+'px'; ring.style.top=ry+'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+    document.querySelectorAll('a,button,[onclick]').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{
+        cursor.style.width='16px'; cursor.style.height='16px';
+        ring.style.width='52px'; ring.style.height='52px';
+      });
+      el.addEventListener('mouseleave',()=>{
+        cursor.style.width='10px'; cursor.style.height='10px';
+        ring.style.width='36px'; ring.style.height='36px';
+      });
+    });
+  }
+
+  // Navbar scroll
+  window.addEventListener('scroll',()=>{
+    const nb = document.getElementById('navbar');
+    if(nb) nb.classList.toggle('scrolled', window.scrollY>20);
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    },{threshold:.12});
+    revealEls.forEach(el=>observer.observe(el));
+  } else {
+    revealEls.forEach(el=>el.classList.add('visible'));
+  }
+
+  // Counter animation
+  const statsBand = document.querySelector('.stats-band');
+  if(statsBand && 'IntersectionObserver' in window) {
+    const statsObs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          animCount('c1',200,'+'); animCount('c2',11,'');
+          animCount('c3',3,'');   animCount('c4',0,'$');
+          statsObs.disconnect();
+        }
+      });
+    },{threshold:.3});
+    statsObs.observe(statsBand);
+  }
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const href = a.getAttribute('href');
+      if(!href||href==='#') return;
+      const target = document.querySelector(href);
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+    });
+  });
+
+  // Newsletter enter key
+  document.getElementById('nlEmail')?.addEventListener('keydown',e=>{
+    if(e.key==='Enter') subscribeNL();
+  });
+
+  // Parallax orbs
+  window.addEventListener('scroll',()=>{
+    const y = window.scrollY;
+    const a1 = document.querySelector('.a1');
+    const a2 = document.querySelector('.a2');
+    if(a1) a1.style.transform=`translate(${y*.02}px,${y*.03}px)`;
+    if(a2) a2.style.transform=`translate(${-y*.015}px,${-y*.02}px)`;
+  });
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>
